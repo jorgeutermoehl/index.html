@@ -1,178 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Um Momento Épico</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Uma Pergunta Importante 💖</title>
 
 <style>
-* { box-sizing: border-box; }
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Georgia, serif;
-    background: radial-gradient(circle at top, #1b1b3a, #000);
-    overflow: hidden;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1a1a3d, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-.container {
-    background: rgba(0,0,0,0.6);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(255,255,255,0.25);
-    width: 90%;
-    max-width: 380px;
-    z-index: 2;
+.card {
+  background: rgba(0,0,0,0.7);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 40px rgba(255,255,255,0.1);
+  max-width: 320px;
 }
 
 h1 {
-    font-size: 1.8em;
-    text-shadow: 0 0 15px #ff4d6d;
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #ffb6c1;
 }
 
-h2 {
-    margin: 20px 0;
+p {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.botoes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 button {
-    width: 100%;
-    padding: 16px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 14px;
-    margin-top: 15px;
-    cursor: pointer;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
-#yes {
-    background: linear-gradient(45deg, gold, orange);
-    font-weight: bold;
+#sim {
+  background: linear-gradient(135deg, #ffd000, #ff9900);
+  color: #000;
+  box-shadow: 0 0 20px rgba(255,215,0,0.7);
 }
 
-#no {
-    background: crimson;
-    color: white;
-    position: absolute;
+#nao {
+  background: #e11d48;
+  color: white;
+  position: relative;
 }
 
-#ring {
-    font-size: 90px;
-    margin-top: 20px;
-    animation: drop 2s forwards;
+/* 🎆 Fogos */
+.firework {
+  position: absolute;
+  font-size: 30px;
+  animation: explode 1.5s ease-out forwards;
 }
 
-@keyframes drop {
-    from {
-        transform: translateY(-200px) scale(0.3);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
+@keyframes explode {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
 }
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
+/* 💍 Anel */
+#anel {
+  font-size: 60px;
+  margin-top: 20px;
+  animation: ring 1.5s ease forwards;
 }
+
+@keyframes ring {
+  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* 😄 Pessoas felizes */
+.happy {
+  position: absolute;
+  font-size: 40px;
+  animation: float 3s linear forwards;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-200px); opacity: 0; }
+}
+
 </style>
 </head>
 
 <body>
 
-<canvas id="fx"></canvas>
+<div class="card" id="card">
+  <h1>Entre bilhões de possibilidades…</h1>
+  <p>Quer namorar comigo?</p>
 
-<div class="container" id="box">
-    <h1>Entre bilhões de possibilidades…</h1>
-    <h2>Quer namorar comigo?</h2>
-    <button id="yes">SIM 💍</button>
-    <button id="no">Não</button>
+  <div class="botoes">
+    <button id="sim">SIM 💍</button>
+    <button id="nao">NÃO ❌</button>
+  </div>
+
+  <div id="resultado"></div>
 </div>
 
 <script>
-const yes = document.getElementById("yes");
-const no = document.getElementById("no");
-const box = document.getElementById("box");
+const sim = document.getElementById("sim");
+const nao = document.getElementById("nao");
+const resultado = document.getElementById("resultado");
+const body = document.body;
 
-function fugir() {
-    no.innerText = "Tem certeza?";
-    const maxX = window.innerWidth - 120;
-    const maxY = window.innerHeight - 60;
-    no.style.left = Math.random() * maxX + "px";
-    no.style.top = Math.random() * maxY + "px";
-}
+sim.addEventListener("click", () => {
+  resultado.innerHTML = "<div id='anel'>💍</div>";
 
-no.addEventListener("touchstart", fugir);
-no.addEventListener("click", fugir);
+  // Vibração no celular
+  if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
 
-yes.addEventListener("click", () => {
-    box.innerHTML = `
-        <h1>O DESTINO FOI SELADO</h1>
-        <p>Esta história acaba de começar.</p>
-        <div id="ring">💍</div>
-    `;
-    iniciarFogos();
+  // Fogos
+  for (let i = 0; i < 20; i++) {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.innerText = "🎆";
+    fw.style.left = Math.random() * window.innerWidth + "px";
+    fw.style.top = Math.random() * window.innerHeight + "px";
+    body.appendChild(fw);
+    setTimeout(() => fw.remove(), 1500);
+  }
+
+  // Pessoas felizes
+  const emojis = ["💃","🕺","🥰","😍","❤️","🎉"];
+  for (let i = 0; i < 15; i++) {
+    const h = document.createElement("div");
+    h.className = "happy";
+    h.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * window.innerWidth + "px";
+    h.style.bottom = "0px";
+    body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+  }
 });
 
-// FOGOS DE ARTIFÍCIO
-const canvas = document.getElementById("fx");
-const ctx = canvas.getContext("2d");
+nao.addEventListener("mouseover", fugir);
+nao.addEventListener("click", fugir);
 
-function ajustarCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+function fugir() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  nao.style.position = "absolute";
+  nao.style.left = x + "px";
+  nao.style.top = y + "px";
+
+  body.style.transform = `translate(${Math.random()*20-10}px, ${Math.random()*20-10}px)`;
+
+  resultado.innerHTML = "<p>Tem certeza? 😏</p>";
 }
-ajustarCanvas();
-window.addEventListener("resize", ajustarCanvas);
-
-let particulas = [];
-
-function iniciarFogos() {
-    setInterval(() => {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height * 0.5;
-        for (let i = 0; i < 50; i++) {
-            particulas.push({
-                x: x,
-                y: y,
-                vx: (Math.random() - 0.5) * 6,
-                vy: (Math.random() - 0.5) * 6,
-                vida: 90
-            });
-        }
-    }, 400);
-}
-
-function animar() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particulas.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vida--;
-        ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        if (p.vida <= 0) particulas.splice(i, 1);
-    });
-    requestAnimationFrame(animar);
-}
-
-animar();
 </script>
 
 </body>
