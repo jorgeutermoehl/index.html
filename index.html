@@ -1,178 +1,203 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Uma Pergunta Importante 💖</title>
+<meta charset="UTF-8">
+<title>Quer voltar comigo?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  height: 100vh;
-  background: radial-gradient(circle at top, #1a1a3d, #000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: transform 0.3s ease;
+    background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 2s;
 }
 
-.card {
-  background: rgba(0,0,0,0.7);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  color: #fff;
-  box-shadow: 0 0 40px rgba(255,255,255,0.1);
-  max-width: 320px;
+.container {
+    text-align: center;
+    color: #fff;
+    z-index: 10;
 }
 
 h1 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #ffb6c1;
+    font-size: 3em;
+    margin-bottom: 40px;
+    animation: pulse 2s infinite;
 }
 
-p {
-  margin-bottom: 25px;
-  font-size: 18px;
-}
-
-.botoes {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+.buttons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
 }
 
 button {
-  padding: 14px 32px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
+    padding: 20px 50px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-#sim {
-  background: linear-gradient(135deg, #ffd000, #ff9900);
-  color: #000;
-  box-shadow: 0 0 20px rgba(255,215,0,0.7);
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
 }
 
-#nao {
-  background: #e11d48;
-  color: white;
-  position: relative;
+.sim {
+    background: #2ecc71;
+    color: #fff;
 }
 
-/* 🎆 Fogos */
-.firework {
-  position: absolute;
-  font-size: 30px;
-  animation: explode 1.5s ease-out forwards;
+.nao {
+    background: #e74c3c;
+    color: #fff;
 }
 
-@keyframes explode {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
+/* RESULTADOS */
+.resultado {
+    display: none;
+    text-align: center;
+    color: white;
+    animation: fadeIn 2s forwards;
 }
 
-/* 💍 Anel */
-#anel {
-  font-size: 60px;
-  margin-top: 20px;
-  animation: ring 1.5s ease forwards;
+.resultado h2 {
+    font-size: 3em;
+    margin-bottom: 30px;
 }
 
-@keyframes ring {
-  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-  100% { transform: scale(1) rotate(0); opacity: 1; }
+/* ANEL */
+.anel {
+    width: 120px;
+    margin: 40px auto;
+    animation: ringMove 3s forwards;
 }
 
-/* 😄 Pessoas felizes */
-.happy {
-  position: absolute;
-  font-size: 40px;
-  animation: float 3s linear forwards;
+/* LISTA TRISTE */
+.lista {
+    font-size: 1.3em;
+    line-height: 2em;
+    opacity: 0;
+    animation: fadeIn 3s forwards 1s;
 }
 
-@keyframes float {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-200px); opacity: 0; }
+/* CONFETES */
+.confete {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    animation: cair 5s linear infinite;
 }
 
+/* CHUVA */
+.chuva {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: rgba(255,255,255,0.5);
+    animation: chuva 1.5s linear infinite;
+}
+
+/* ANIMAÇÕES */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes ringMove {
+    from { transform: translateY(-300px) scale(0.2); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes cair {
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(110vh); }
+}
+
+@keyframes chuva {
+    from { transform: translateY(-20vh); }
+    to { transform: translateY(120vh); }
+}
 </style>
 </head>
 
 <body>
 
-<div class="card" id="card">
-  <h1>Entre bilhões de possibilidades…</h1>
-  <p>Quer namorar comigo?</p>
+<div class="container" id="inicio">
+    <h1>Quer voltar comigo?</h1>
+    <div class="buttons">
+        <button class="sim" onclick="respostaSim()">Sim</button>
+        <button class="nao" onclick="respostaNao()">Não</button>
+    </div>
+</div>
 
-  <div class="botoes">
-    <button id="sim">SIM 💍</button>
-    <button id="nao">NÃO ❌</button>
-  </div>
+<div class="resultado" id="sim">
+    <h2>Então vamos voltar 💍</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Diamond_ring_icon.svg/512px-Diamond_ring_icon.svg.png" class="anel">
+</div>
 
-  <div id="resultado"></div>
+<div class="resultado" id="nao">
+    <h2>Então ano que vem veremos de novo…</h2>
+    <div class="lista">
+        <p>1 - Gatos estão bem.</p>
+        <p>2 - Estou bem e com saudade.</p>
+        <p>3 - Vamos me mudar pra Vancouver em 2029.</p>
+        <p>4 - Viva bem.</p>
+    </div>
 </div>
 
 <script>
-const sim = document.getElementById("sim");
-const nao = document.getElementById("nao");
-const resultado = document.getElementById("resultado");
-const body = document.body;
+function respostaSim() {
+    document.body.style.background = "linear-gradient(120deg, #1dd1a1, #10ac84)";
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("sim").style.display = "block";
 
-sim.addEventListener("click", () => {
-  resultado.innerHTML = "<div id='anel'>💍</div>";
+    // Confetes
+    for(let i=0;i<150;i++){
+        let c = document.createElement("div");
+        c.className = "confete";
+        c.style.left = Math.random()*100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        c.style.animationDuration = (Math.random()*3+2) + "s";
+        document.body.appendChild(c);
+    }
 
-  // Vibração no celular
-  if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    // Música (abre automaticamente)
+    window.open("https://www.youtube.com/watch?v=04854XqcfCY", "_blank");
+}
 
-  // Fogos
-  for (let i = 0; i < 20; i++) {
-    const fw = document.createElement("div");
-    fw.className = "firework";
-    fw.innerText = "🎆";
-    fw.style.left = Math.random() * window.innerWidth + "px";
-    fw.style.top = Math.random() * window.innerHeight + "px";
-    body.appendChild(fw);
-    setTimeout(() => fw.remove(), 1500);
-  }
+function respostaNao() {
+    document.body.style.background = "linear-gradient(120deg, #2c3e50, #000)";
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("nao").style.display = "block";
 
-  // Pessoas felizes
-  const emojis = ["💃","🕺","🥰","😍","❤️","🎉"];
-  for (let i = 0; i < 15; i++) {
-    const h = document.createElement("div");
-    h.className = "happy";
-    h.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-    h.style.left = Math.random() * window.innerWidth + "px";
-    h.style.bottom = "0px";
-    body.appendChild(h);
-    setTimeout(() => h.remove(), 3000);
-  }
-});
-
-nao.addEventListener("mouseover", fugir);
-nao.addEventListener("click", fugir);
-
-function fugir() {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
-  nao.style.position = "absolute";
-  nao.style.left = x + "px";
-  nao.style.top = y + "px";
-
-  body.style.transform = `translate(${Math.random()*20-10}px, ${Math.random()*20-10}px)`;
-
-  resultado.innerHTML = "<p>Tem certeza? 😏</p>";
+    // Chuva
+    for(let i=0;i<120;i++){
+        let r = document.createElement("div");
+        r.className = "chuva";
+        r.style.left = Math.random()*100 + "vw";
+        r.style.animationDuration = (Math.random()+0.5) + "s";
+        document.body.appendChild(r);
+    }
 }
 </script>
 
