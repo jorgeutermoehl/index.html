@@ -71,16 +71,25 @@ button:hover {
     text-align: center;
     color: white;
     animation: fadeIn 2s forwards;
+    max-width: 90%;
 }
 
 .resultado h2 {
-    font-size: 3em;
+    font-size: 2.8em;
     margin-bottom: 30px;
+}
+
+/* TEXTO DIGITADO */
+.typewriter {
+    border-right: 3px solid rgba(255,255,255,0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: blink 0.8s infinite;
 }
 
 /* ANEL */
 .anel {
-    width: 120px;
+    width: 140px;
     margin: 40px auto;
     animation: ringMove 3s forwards;
 }
@@ -88,9 +97,9 @@ button:hover {
 /* LISTA TRISTE */
 .lista {
     font-size: 1.3em;
-    line-height: 2em;
+    line-height: 2.2em;
     opacity: 0;
-    animation: fadeIn 3s forwards 1s;
+    animation: fadeIn 3s forwards 1.5s;
 }
 
 /* CONFETES */
@@ -98,7 +107,6 @@ button:hover {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: red;
     animation: cair 5s linear infinite;
 }
 
@@ -106,9 +114,9 @@ button:hover {
 .chuva {
     position: absolute;
     width: 2px;
-    height: 20px;
-    background: rgba(255,255,255,0.5);
-    animation: chuva 1.5s linear infinite;
+    height: 25px;
+    background: rgba(255,255,255,0.4);
+    animation: chuva 1.3s linear infinite;
 }
 
 /* ANIMAÇÕES */
@@ -124,8 +132,8 @@ button:hover {
 }
 
 @keyframes ringMove {
-    from { transform: translateY(-300px) scale(0.2); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
+    from { transform: translateY(-300px) scale(0.2) rotate(-180deg); opacity: 0; }
+    to { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
 }
 
 @keyframes cair {
@@ -136,6 +144,12 @@ button:hover {
 @keyframes chuva {
     from { transform: translateY(-20vh); }
     to { transform: translateY(120vh); }
+}
+
+@keyframes blink {
+    0% { border-color: transparent; }
+    50% { border-color: rgba(255,255,255,0.8); }
+    100% { border-color: transparent; }
 }
 </style>
 </head>
@@ -151,28 +165,42 @@ button:hover {
 </div>
 
 <div class="resultado" id="sim">
-    <h2>Então vamos voltar 💍</h2>
+    <h2 id="textoSim" class="typewriter"></h2>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Diamond_ring_icon.svg/512px-Diamond_ring_icon.svg.png" class="anel">
 </div>
 
 <div class="resultado" id="nao">
-    <h2>Então ano que vem veremos de novo…</h2>
+    <h2 id="textoNao" class="typewriter"></h2>
     <div class="lista">
-        <p>1 - Gatos estão bem.</p>
-        <p>2 - Estou bem e com saudade.</p>
-        <p>3 - Vamos me mudar pra Vancouver em 2029.</p>
-        <p>4 - Viva bem.</p>
+        <p>1 – Os gatos estão bem.</p>
+        <p>2 – Estou bem, mas com saudade.</p>
+        <p>3 – Vou me mudar para Vancouver em 2029.</p>
+        <p>4 – Viva bem.</p>
     </div>
 </div>
 
 <script>
+function escreverTexto(elemento, texto, velocidade = 80) {
+    let i = 0;
+    elemento.innerHTML = "";
+    let intervalo = setInterval(() => {
+        elemento.innerHTML += texto.charAt(i);
+        i++;
+        if (i >= texto.length) clearInterval(intervalo);
+    }, velocidade);
+}
+
 function respostaSim() {
     document.body.style.background = "linear-gradient(120deg, #1dd1a1, #10ac84)";
     document.getElementById("inicio").style.display = "none";
     document.getElementById("sim").style.display = "block";
 
-    // Confetes
-    for(let i=0;i<150;i++){
+    escreverTexto(
+        document.getElementById("textoSim"),
+        "Então vamos voltar 💍"
+    );
+
+    for(let i=0;i<180;i++){
         let c = document.createElement("div");
         c.className = "confete";
         c.style.left = Math.random()*100 + "vw";
@@ -181,21 +209,24 @@ function respostaSim() {
         document.body.appendChild(c);
     }
 
-    // Música (abre automaticamente)
     window.open("https://www.youtube.com/watch?v=04854XqcfCY", "_blank");
 }
 
 function respostaNao() {
-    document.body.style.background = "linear-gradient(120deg, #2c3e50, #000)";
+    document.body.style.background = "linear-gradient(120deg, #1c1c1c, #000)";
     document.getElementById("inicio").style.display = "none";
     document.getElementById("nao").style.display = "block";
 
-    // Chuva
-    for(let i=0;i<120;i++){
+    escreverTexto(
+        document.getElementById("textoNao"),
+        "Então, ano que vem nos veremos de novo…"
+    );
+
+    for(let i=0;i<140;i++){
         let r = document.createElement("div");
         r.className = "chuva";
         r.style.left = Math.random()*100 + "vw";
-        r.style.animationDuration = (Math.random()+0.5) + "s";
+        r.style.animationDuration = (Math.random()+0.6) + "s";
         document.body.appendChild(r);
     }
 }
