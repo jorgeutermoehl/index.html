@@ -1,236 +1,216 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Quer voltar comigo?</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gothic Market</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+  <!-- Fonte Bastion (fallback incluído) -->
+  <link href="https://fonts.cdnfonts.com/css/bastion" rel="stylesheet">
 
-body {
-    background: linear-gradient(120deg, #ff9a9e, #fad0c4);
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 2s;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Bastion', 'Times New Roman', serif;
+    }
 
-.container {
-    text-align: center;
-    color: #fff;
-    z-index: 10;
-}
+    body {
+      background-color: #000;
+      color: #b30000;
+      min-height: 100vh;
+    }
 
-h1 {
-    font-size: 3em;
-    margin-bottom: 40px;
-    animation: pulse 2s infinite;
-}
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #b30000;
+    }
 
-.buttons {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-}
+    header h1 {
+      font-size: 48px;
+      letter-spacing: 3px;
+    }
 
-button {
-    padding: 20px 50px;
-    font-size: 1.5em;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+    }
 
-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.6);
-}
+    nav a {
+      color: #b30000;
+      text-decoration: none;
+      font-size: 22px;
+      transition: 0.3s;
+    }
 
-.sim {
-    background: #2ecc71;
-    color: #fff;
-}
+    nav a:hover {
+      text-shadow: 0 0 10px red;
+    }
 
-.nao {
-    background: #e74c3c;
-    color: #fff;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
 
-/* RESULTADOS */
-.resultado {
-    display: none;
-    text-align: center;
-    color: white;
-    animation: fadeIn 2s forwards;
-    max-width: 90%;
-}
+    .auth-box, .product-box {
+      border: 2px solid #b30000;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      background: rgba(20, 0, 0, 0.6);
+    }
 
-.resultado h2 {
-    font-size: 2.8em;
-    margin-bottom: 30px;
-}
+    h2 {
+      margin-bottom: 15px;
+      font-size: 32px;
+    }
 
-/* TEXTO DIGITADO */
-.typewriter {
-    border-right: 3px solid rgba(255,255,255,0.8);
-    white-space: nowrap;
-    overflow: hidden;
-    animation: blink 0.8s infinite;
-}
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 18px;
+    }
 
-/* ANEL */
-.anel {
-    width: 140px;
-    margin: 40px auto;
-    animation: ringMove 3s forwards;
-}
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background-color: #000;
+      border: 1px solid #b30000;
+      color: #b30000;
+    }
 
-/* LISTA TRISTE */
-.lista {
-    font-size: 1.3em;
-    line-height: 2.2em;
-    opacity: 0;
-    animation: fadeIn 3s forwards 1.5s;
-}
+    input[type="file"] {
+      border: none;
+    }
 
-/* CONFETES */
-.confete {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    animation: cair 5s linear infinite;
-}
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #b30000;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
 
-/* CHUVA */
-.chuva {
-    position: absolute;
-    width: 2px;
-    height: 25px;
-    background: rgba(255,255,255,0.4);
-    animation: chuva 1.3s linear infinite;
-}
+    button:hover {
+      background-color: red;
+    }
 
-/* ANIMAÇÕES */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+    .product-card {
+      border: 1px solid #b30000;
+      padding: 15px;
+      text-align: center;
+      background-color: #000;
+    }
 
-@keyframes ringMove {
-    from { transform: translateY(-300px) scale(0.2) rotate(-180deg); opacity: 0; }
-    to { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
-}
+    .product-card img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid #b30000;
+      margin-bottom: 10px;
+    }
 
-@keyframes cair {
-    from { transform: translateY(-10vh); }
-    to { transform: translateY(110vh); }
-}
-
-@keyframes chuva {
-    from { transform: translateY(-20vh); }
-    to { transform: translateY(120vh); }
-}
-
-@keyframes blink {
-    0% { border-color: transparent; }
-    50% { border-color: rgba(255,255,255,0.8); }
-    100% { border-color: transparent; }
-}
-</style>
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 2px solid #b30000;
+      margin-top: 40px;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container" id="inicio">
-    <h1>Quer voltar comigo?</h1>
-    <div class="buttons">
-        <button class="sim" onclick="respostaSim()">Sim</button>
-        <button class="nao" onclick="respostaNao()">Não</button>
-    </div>
-</div>
+  <header>
+    <h1>Gothic Market</h1>
+    <nav>
+      <a href="#login">Вход</a>
+      <a href="#register">Регистрация</a>
+      <a href="#products">Товары</a>
+      <a href="#add">Добавить товар</a>
+    </nav>
+  </header>
 
-<div class="resultado" id="sim">
-    <h2 id="textoSim" class="typewriter"></h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Diamond_ring_icon.svg/512px-Diamond_ring_icon.svg.png" class="anel">
-</div>
+  <div class="container">
 
-<div class="resultado" id="nao">
-    <h2 id="textoNao" class="typewriter"></h2>
-    <div class="lista">
-        <p>1 – Os gatos estão bem.</p>
-        <p>2 – Estou bem, mas com saudade.</p>
-        <p>3 – Vou me mudar para Vancouver em 2029.</p>
-        <p>4 – Viva bem.</p>
-    </div>
-</div>
+    <!-- Login -->
+    <section id="login" class="auth-box">
+      <h2>Вход пользователя</h2>
+      <label>Имя пользователя</label>
+      <input type="text" placeholder="Логин" />
 
-<script>
-function escreverTexto(elemento, texto, velocidade = 80) {
-    let i = 0;
-    elemento.innerHTML = "";
-    let intervalo = setInterval(() => {
-        elemento.innerHTML += texto.charAt(i);
-        i++;
-        if (i >= texto.length) clearInterval(intervalo);
-    }, velocidade);
-}
+      <label>Пароль</label>
+      <input type="password" placeholder="Пароль" />
 
-function respostaSim() {
-    document.body.style.background = "linear-gradient(120deg, #1dd1a1, #10ac84)";
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("sim").style.display = "block";
+      <button>Войти</button>
+    </section>
 
-    escreverTexto(
-        document.getElementById("textoSim"),
-        "Então vamos voltar 💍"
-    );
+    <!-- Register -->
+    <section id="register" class="auth-box">
+      <h2>Регистрация</h2>
+      <label>Имя пользователя</label>
+      <input type="text" />
 
-    for(let i=0;i<180;i++){
-        let c = document.createElement("div");
-        c.className = "confete";
-        c.style.left = Math.random()*100 + "vw";
-        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-        c.style.animationDuration = (Math.random()*3+2) + "s";
-        document.body.appendChild(c);
-    }
+      <label>Email</label>
+      <input type="email" />
 
-    window.open("https://www.youtube.com/watch?v=04854XqcfCY", "_blank");
-}
+      <label>Пароль</label>
+      <input type="password" />
 
-function respostaNao() {
-    document.body.style.background = "linear-gradient(120deg, #1c1c1c, #000)";
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("nao").style.display = "block";
+      <button>Зарегистрироваться</button>
+    </section>
 
-    escreverTexto(
-        document.getElementById("textoNao"),
-        "Então, ano que vem nos veremos de novo…"
-    );
+    <!-- Products -->
+    <section id="products" class="product-box">
+      <h2>Список товаров</h2>
+      <div class="products">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/300x200" alt="Produto" />
+          <h3>Продукт I</h3>
+          <p>Описание товара</p>
+        </div>
+      </div>
+    </section>
 
-    for(let i=0;i<140;i++){
-        let r = document.createElement("div");
-        r.className = "chuva";
-        r.style.left = Math.random()*100 + "vw";
-        r.style.animationDuration = (Math.random()+0.6) + "s";
-        document.body.appendChild(r);
-    }
-}
-</script>
+    <!-- Add Product -->
+    <section id="add" class="product-box">
+      <h2>Добавить новый товар</h2>
+
+      <label>Название товара</label>
+      <input type="text" />
+
+      <label>Описание</label>
+      <textarea rows="4"></textarea>
+
+      <label>Цена</label>
+      <input type="number" />
+
+      <label>Изображение товара</label>
+      <input type="file" accept="image/*" />
+
+      <button>Добавить</button>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Gothic Market</p>
+  </footer>
 
 </body>
 </html>
